@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Tirtha</title>
+    <meta name="description" content="Light a lamp at every temple you visit." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#E7D5B3" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1A1210" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <script>
+      try {
+        var t = localStorage.getItem("tirtha.theme");
+      } catch (e) {}
+      if (t !== "sandstone" && t !== "sanctum")
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "sanctum" : "sandstone";
+      document.documentElement.dataset.theme = t;
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
