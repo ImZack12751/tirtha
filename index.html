@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Tirtha</title>
+    <meta name="description" content="Light a lamp at every temple you visit." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F2EB" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F0C0A" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <script>
+      try {
+        var t = localStorage.getItem("tirtha.theme");
+      } catch (e) {}
+      if (t !== "sandstone" && t !== "sanctum")
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "sanctum" : "sandstone";
+      document.documentElement.dataset.theme = t;
+    </script>
+    <script type="module" crossorigin src="./assets/index-B8b3PSs6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CVot_65o.css">
+  <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
