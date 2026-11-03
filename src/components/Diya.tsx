@@ -19,7 +19,7 @@ export function diyaMarkup(lit: boolean, color: string, size: number) {
   const ink = lit ? "var(--ink)" : "var(--stone-unlit)";
   return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" overflow="visible" aria-hidden="true">${
     lit ? `<circle cx="37" cy="17" r="15" fill="var(--lamp)" opacity=".28"/>` : ""
-  }<path d="${STAND}" fill="${lit ? color : "var(--slab)"}" stroke="${ink}" stroke-width="1.6"/><path d="${BOWL}" fill="${
+  }<path d="${STAND}" fill="${lit ? color : "var(--surface)"}" stroke="${ink}" stroke-width="1.6"/><path d="${BOWL}" fill="${
     lit ? color : "var(--stone-unlit-fill)"
   }" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"/>${
     lit ? `<path d="${FLAME}" fill="var(--lamp)" stroke="var(--ink)" stroke-width=".6"/><path d="${CORE}" fill="var(--flame-core)"/>` : ""

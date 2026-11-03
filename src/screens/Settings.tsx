@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
 import { clearAll, exportBackup, importBackup, setTheme, today, useThemePref, useVisits, type ThemePref } from "../lib/store";
-import { GopuramHeader } from "../components/ornament";
-import { Confirm, Plaque, Slab, useToast } from "../components/ui";
+import { Button, Card, Confirm, useToast } from "../components/ui";
 
 const THEMES: { id: ThemePref; label: string; hint: string }[] = [
   { id: "system", label: "Follow device", hint: "Day or night with your phone" },
-  { id: "sandstone", label: "Sandstone", hint: "Day: pale stone" },
-  { id: "sanctum", label: "Sanctum", hint: "Night: lamp-lit granite" },
+  { id: "sandstone", label: "Light", hint: "Always light" },
+  { id: "sanctum", label: "Dark", hint: "Always dark" },
 ];
 
 export function Settings() {
@@ -42,44 +41,44 @@ export function Settings() {
 
   return (
     <div className="page">
-      <GopuramHeader title="Settings" tiers={3} />
+      <h1 className="pt-8 text-[clamp(34px,8vw,48px)]">Settings</h1>
 
-      <Slab className="mt-6" inner="p-6">
-        <h2 className="text-[24px]">Appearance</h2>
+      <Card className="mt-6 p-6">
+        <h2 className="text-[22px]">Appearance</h2>
         <div role="radiogroup" aria-label="Theme" className="mt-4 grid gap-3 sm:grid-cols-3">
           {THEMES.map((t) => (
-            <Plaque key={t.id} role="radio" aria-checked={pref === t.id} onClick={() => { setTheme(t.id); toast(`Theme set to ${t.label}.`); }} className="w-full">
-              <span className="flex flex-col items-center leading-snug">
+            <Button key={t.id} role="radio" aria-checked={pref === t.id} onClick={() => { setTheme(t.id); toast(`Theme set to ${t.label}.`); }} className="w-full">
+              <span className="flex flex-col items-center py-2 leading-snug">
                 {t.label}
-                <span className="text-[14px] font-normal text-[var(--ink-soft)]">{t.hint}</span>
+                <span className="text-[13px] font-normal opacity-75">{t.hint}</span>
               </span>
-            </Plaque>
+            </Button>
           ))}
         </div>
-      </Slab>
+      </Card>
 
-      <Slab className="mt-5" inner="p-6">
-        <h2 className="text-[24px]">Backup</h2>
+      <Card className="mt-5 p-6">
+        <h2 className="text-[22px]">Backup</h2>
         <p className="mt-2 text-[var(--ink-soft)]">
           Your lamps and journal live only on this device. Save a backup file now and then, and restore it on a new phone.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Plaque tone="gold" onClick={doExport}>Save backup file</Plaque>
-          <Plaque onClick={() => file.current?.click()}>Restore from backup</Plaque>
+          <Button tone="primary" onClick={doExport}>Save backup file</Button>
+          <Button onClick={() => file.current?.click()}>Restore from backup</Button>
           <input ref={file} type="file" accept="application/json,.json" hidden
             onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) doImport(f); }} />
         </div>
         <p className="mt-3 text-[15px] text-[var(--ink-soft)]">Restoring adds the visits in the file. Where a temple is in both, the more recently edited visit is kept.</p>
-      </Slab>
+      </Card>
 
-      <Slab className="mt-5" inner="p-6">
-        <h2 className="text-[24px]">Start afresh</h2>
+      <Card className="mt-5 p-6">
+        <h2 className="text-[22px]">Start afresh</h2>
         <p className="mt-2 text-[var(--ink-soft)]">Delete every visit and journal entry on this device.</p>
-        <Plaque tone="laterite" className="mt-4" disabled={!count} onClick={() => setConfirmClear(true)}>Delete all visits</Plaque>
-      </Slab>
+        <Button tone="danger" className="mt-4" disabled={!count} onClick={() => setConfirmClear(true)}>Delete all visits</Button>
+      </Card>
 
-      <Slab className="mt-5" inner="p-6">
-        <h2 className="text-[24px]">Sources</h2>
+      <Card className="mt-5 p-6">
+        <h2 className="text-[22px]">Sources</h2>
         <ul className="mt-3 grid gap-2 pl-5 text-[16px]">
           <li>
             Temple lists, names and locations: Wikipedia articles <a href="https://en.wikipedia.org/wiki/Jyotirlinga" target="_blank" rel="noopener">Jyotirlinga</a>,{" "}
@@ -92,9 +91,10 @@ export function Settings() {
             <a href="https://hi.wikipedia.org/wiki/%E0%A4%B6%E0%A4%95%E0%A5%8D%E0%A4%A4%E0%A4%BF_%E0%A4%AA%E0%A5%80%E0%A4%A0" target="_blank" rel="noopener">Hindi Wikipedia</a>.
             Divya Desam names in Tamil are the titles of their Tamil Wikipedia articles.
           </li>
+          <li>Temple photos: Wikimedia Commons, under the licence shown with each photo. Photos showing deity images were left out on purpose.</li>
           <li>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.</li>
         </ul>
-      </Slab>
+      </Card>
 
       <Confirm
         open={confirmClear}

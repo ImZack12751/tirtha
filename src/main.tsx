@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "@fontsource/yatra-one";
+import "@fontsource-variable/inter";
 import "@fontsource/tiro-devanagari-hindi";
 import "@fontsource-variable/source-serif-4";
 import "@fontsource/noto-serif-tamil";

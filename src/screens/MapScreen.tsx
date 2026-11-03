@@ -6,7 +6,8 @@ import { useVisits } from "../lib/store";
 import { href } from "../lib/router";
 import { Diya, diyaMarkup } from "../components/Diya";
 import { LocalName } from "../components/SiteRow";
-import { Plaque, PlaqueLink, Slab } from "../components/ui";
+import { Button, ButtonLink, Card } from "../components/ui";
+import { hasPhoto, thumbUrl } from "../lib/photos";
 
 const pinHtml = (circuit: CircuitId, lit: boolean, selected: boolean, size: number) =>
   `<span style="display:block;transform-origin:50% 90%;${selected ? "transform:scale(1.35)" : ""}">${diyaMarkup(lit, `var(--c-${circuit})`, size)}</span>`;
@@ -78,41 +79,41 @@ export function MapScreen({ site: focusId, circuit: onlyCircuit }: { site?: stri
     });
 
   return (
-    <div className="page flex h-[calc(100dvh-96px-env(safe-area-inset-bottom))] flex-col gap-3 pt-4 lg:h-[100dvh] lg:pb-6">
+    <div className="page flex h-[calc(100dvh-80px-env(safe-area-inset-bottom))] flex-col gap-3 pt-4 lg:h-[100dvh] lg:pb-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-[30px]">Map</h1>
+        <h1 className="text-[32px]">Map</h1>
         <div role="group" aria-label="Circuits on the map" className="flex flex-wrap gap-2">
           {CIRCUITS.map((c) => (
-            <Plaque key={c.id} small aria-pressed={shown.has(c.id)} onClick={() => toggle(c.id)}>
-              <svg width="14" height="14" aria-hidden="true"><rect width="14" height="14" fill={`var(--c-${c.id})`} transform="rotate(45 7 7) scale(.75)" style={{ transformOrigin: "7px 7px" }} /></svg>
+            <Button key={c.id} small aria-pressed={shown.has(c.id)} onClick={() => toggle(c.id)}>
+              <span aria-hidden="true" className="h-3 w-3 rounded-full" style={{ background: `var(--c-${c.id})` }} />
               {c.name}
-            </Plaque>
+            </Button>
           ))}
         </div>
       </div>
 
-      <div className="slab chamfer map-wrap relative min-h-0 flex-1">
-        <div className="slab-in chamfer h-full overflow-hidden">
+      <div className="map-wrap relative min-h-0 flex-1">
+        <div className="card h-full overflow-hidden">
           <div ref={el} className="h-full w-full" aria-label="Map of temples" />
         </div>
 
         {sel && (
           <div className="absolute inset-x-3 bottom-3 z-[600] sm:left-auto sm:right-4 sm:w-[380px]">
-            <Slab gilt inner="p-5">
+            <Card className="p-5">
               <div className="flex items-start gap-4">
-                <Diya lit={!!visits[sel.id]} color={`var(--c-${sel.circuit})`} size={52} />
+                {hasPhoto(sel.id) ? <img className="thumb !h-16 !w-16" src={thumbUrl(sel.id)} alt="" /> : <Diya lit={!!visits[sel.id]} color={`var(--c-${sel.circuit})`} size={52} />}
                 <div className="min-w-0 flex-1">
-                  <p className="text-[14px] font-semibold uppercase tracking-[0.1em] text-[var(--ink-soft)]">{CIRCUIT[sel.circuit].single}</p>
-                  <h2 className="text-[24px]">{sel.name}</h2>
-                  <LocalName site={sel} className="block text-[19px] text-[var(--accent)]" />
+                  <p className="text-[13px] font-semibold uppercase tracking-[0.1em] text-[var(--ink-soft)]">{CIRCUIT[sel.circuit].single}{visits[sel.id] ? " · Visited" : ""}</p>
+                  <h2 className="text-[22px]">{sel.name}</h2>
+                  <LocalName site={sel} className="block text-[17px] text-[var(--ink-soft)]" />
                   <p className="mt-1 text-[16px] leading-snug text-[var(--ink-soft)]">{sel.place}{sel.approx ? " (approximate)" : ""}</p>
                 </div>
               </div>
               <div className="mt-4 flex gap-3">
-                <PlaqueLink tone="gold" href={href.site(sel.id)} className="flex-1">Open</PlaqueLink>
-                <Plaque onClick={() => setSelected(undefined)}>Close</Plaque>
+                <ButtonLink tone="primary" href={href.site(sel.id)} className="flex-1">Open</ButtonLink>
+                <Button onClick={() => setSelected(undefined)}>Close</Button>
               </div>
-            </Slab>
+            </Card>
           </div>
         )}
       </div>

@@ -3,8 +3,7 @@ import { CIRCUIT, SITE_BY_ID, TWINS, directionsUrl, wikiUrl, type Site as SiteT 
 import { formatDate, lightLamp, removeVisit, today, updateVisit, useVisits } from "../lib/store";
 import { href } from "../lib/router";
 import { Diya } from "../components/Diya";
-import { KolamFrame, LotusBand, MeanderBand } from "../components/ornament";
-import { Confirm, Plaque, PlaqueLink, Slab, useToast } from "../components/ui";
+import { Button, ButtonLink, Card, Confirm, Hero, PhotoCredit, useToast } from "../components/ui";
 import { LocalName } from "../components/SiteRow";
 import { NotFound } from "./Circuit";
 
@@ -34,6 +33,7 @@ export function Site({ id }: { id: string }) {
   if (!site) return <NotFound />;
   const c = CIRCUIT[site.circuit];
   const color = `var(--c-${site.circuit})`;
+  const where = site.celestial ? "Celestial abode" : site.state && !site.place.includes(site.state) ? `${site.place}, ${site.state}` : site.place;
 
   const saved = (ok: boolean, msg: string) => toast(ok ? msg : "Could not save on this device. Check that storage is allowed for this app.");
 
@@ -47,66 +47,80 @@ export function Site({ id }: { id: string }) {
   };
 
   return (
-    <div className="page pt-4">
-      <a href={href.circuit(site.circuit)} className="inline-flex min-h-[44px] items-center gap-2 text-[17px] font-semibold no-underline">
-        <span aria-hidden="true">‹</span> {c.name}
-      </a>
+    <div className="page">
+      <Hero photo={site.id} alt={site.name} back={{ href: href.circuit(site.circuit), label: c.name }}>
+        <p className="soft text-[13px] font-semibold uppercase tracking-[0.12em]">
+          {c.single} {site.circuit === "dham" ? `· ${site.dir}` : `· ${site.n} of ${c.total}`}
+        </p>
+        <h1 className="mt-1 text-[clamp(32px,8vw,50px)]">{site.name}</h1>
+        <LocalName site={site} className="mt-1 block text-[22px] leading-snug" />
+        <p className="soft mt-2 text-[17px]">{where}</p>
+      </Hero>
+      <PhotoCredit id={site.id} className="mt-2" />
 
-      {/* The plaque */}
-      <Slab className="mt-2" inner="relative px-6 pb-8 pt-10 sm:px-10">
-        <KolamFrame>
-          <div className="absolute inset-x-10 top-3 text-[var(--gold)]"><LotusBand className="block" /></div>
-          <div className="flex flex-col items-center text-center">
-            <div className="lamp-halo grid h-[150px] w-[150px] place-items-center">
-              <Diya lit={!!visit} color={color} size={120} lighting={lighting} live={!!visit && !lighting} />
-            </div>
-            <p className="mt-1 text-[15px] font-semibold uppercase tracking-[0.12em] text-[var(--ink-soft)]">
-              {c.single} {site.circuit === "dham" ? `· ${site.dir}` : `· ${site.n} of ${c.total}`}
-            </p>
-            <h1 className="mt-2 text-[clamp(32px,7vw,46px)]">{site.name}</h1>
-            <LocalName site={site} className="mt-1 block text-[24px] leading-snug text-[var(--accent)]" />
-            <p className="mt-2 text-[18px] text-[var(--ink-soft)]">
-              {site.celestial ? "Celestial abode" : site.state && !site.place.includes(site.state) ? `${site.place}, ${site.state}` : site.place}
-            </p>
+      {/* The visit */}
+      <Card className="mt-6 p-6">
+        <div className="flex items-start gap-5">
+          <div className="grid h-[84px] w-[84px] shrink-0 place-items-center rounded-2xl bg-[var(--surface-2)]">
+            <Diya lit={!!visit} color={color} size={64} lighting={lighting} live={!!visit && !lighting} />
           </div>
-          <div className="absolute inset-x-10 bottom-3 text-[var(--gold)]"><MeanderBand className="block" /></div>
-        </KolamFrame>
-      </Slab>
-
-      {/* Lighting and the visit */}
-      <Slab className="mt-5" inner="p-6">
-        {visit ? (
-          <div className="grid gap-5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-[19px]">
-                Lamp lit on <strong>{formatDate(visit.date)}</strong>
-              </p>
-              {!editingDate && <Plaque small onClick={() => { setDate(visit.date); setEditingDate(true); }}>Change date</Plaque>}
-            </div>
-            {editingDate && (
-              <div className="flex flex-wrap items-end gap-3">
-                <label className="field">
-                  Date of visit
-                  <input type="date" value={date} max={today()} onChange={(e) => setDate(e.target.value)} />
-                </label>
-                <Plaque tone="gold" disabled={!date} onClick={() => { setEditingDate(false); saved(updateVisit(id, { date }), `Visit date changed to ${formatDate(date)}.`); }}>Save date</Plaque>
-                <Plaque onClick={() => setEditingDate(false)}>Cancel</Plaque>
-              </div>
+          <div className="min-w-0 flex-1">
+            {visit ? (
+              <>
+                <p className="text-[14px] font-semibold uppercase tracking-[0.1em] text-[var(--ink-soft)]">Visited</p>
+                <p className="serif text-[24px] font-semibold">{formatDate(visit.date)}</p>
+                {!editingDate && (
+                  <button type="button" className="mt-1 text-[15px] font-semibold text-[var(--accent)] underline underline-offset-4"
+                    onClick={() => { setDate(visit.date); setEditingDate(true); }}>
+                    Change date
+                  </button>
+                )}
+              </>
+            ) : composing ? (
+              <>
+                <p className="text-[14px] font-semibold uppercase tracking-[0.1em] text-[var(--ink-soft)]">Light the lamp</p>
+                <p className="serif text-[22px] font-semibold">When did you visit?</p>
+              </>
+            ) : (
+              <>
+                <p className="text-[14px] font-semibold uppercase tracking-[0.1em] text-[var(--ink-soft)]">Not yet visited</p>
+                <p className="mt-1 text-[16px] text-[var(--ink-soft)]">Light the lamp once your family has been here.</p>
+                <Button tone="primary" className="mt-4" onClick={() => { setDate(today()); setNote(""); setAlsoTwin(true); setComposing(true); }}>
+                  Light the lamp
+                </Button>
+              </>
             )}
+          </div>
+        </div>
+
+        {visit && editingDate && (
+          <div className="mt-5 flex flex-wrap items-end gap-3">
+            <label className="field">
+              Date of visit
+              <input type="date" value={date} max={today()} onChange={(e) => setDate(e.target.value)} />
+            </label>
+            <Button tone="primary" disabled={!date} onClick={() => { setEditingDate(false); saved(updateVisit(id, { date }), `Visit date changed to ${formatDate(date)}.`); }}>Save date</Button>
+            <Button onClick={() => setEditingDate(false)}>Cancel</Button>
+          </div>
+        )}
+
+        {visit && (
+          <div className="mt-6 grid gap-4">
             <label className="field">
               Journal
               <textarea value={journal} onChange={(e) => setJournal(e.target.value)} placeholder="Who came along, what the darshan was like, what to remember next time" />
             </label>
             <div className="flex flex-wrap justify-between gap-3">
-              <Plaque tone="gold" disabled={journal === visit.journal} onClick={() => saved(updateVisit(id, { journal }), "Journal saved.")}>
+              <Button tone="primary" disabled={journal === visit.journal} onClick={() => saved(updateVisit(id, { journal }), "Journal saved.")}>
                 {journal === visit.journal ? "Journal saved" : "Save journal"}
-              </Plaque>
-              <Plaque tone="laterite" small onClick={() => setConfirming(true)}>Remove this visit</Plaque>
+              </Button>
+              <Button tone="danger" small onClick={() => setConfirming(true)}>Remove this visit</Button>
             </div>
           </div>
-        ) : composing ? (
-          <div className="grid gap-5">
-            <h2 className="text-[24px]">Light the lamp</h2>
+        )}
+
+        {!visit && composing && (
+          <div className="mt-6 grid gap-5">
             <label className="field max-w-[260px]">
               Date of visit
               <input type="date" value={date} max={today()} onChange={(e) => setDate(e.target.value)} />
@@ -116,25 +130,18 @@ export function Site({ id }: { id: string }) {
               <textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Who came along, what the darshan was like, what to remember next time" />
             </label>
             {twin && !visits[twin.id] && (
-              <label className="flex items-start gap-3 text-[17px]">
-                <input type="checkbox" className="mt-1.5 h-5 w-5 accent-[var(--accent)]" checked={alsoTwin} onChange={(e) => setAlsoTwin(e.target.checked)} />
+              <label className="flex items-start gap-3 text-[16px]">
+                <input type="checkbox" className="mt-1 h-5 w-5 accent-[var(--accent)]" checked={alsoTwin} onChange={(e) => setAlsoTwin(e.target.checked)} />
                 <span>Also light the lamp for {twin.name} in {CIRCUIT[twin.circuit].name}. It is the same temple.</span>
               </label>
             )}
             <div className="flex flex-wrap gap-3">
-              <Plaque tone="gold" disabled={!date} onClick={light}>Light the lamp</Plaque>
-              <Plaque onClick={() => setComposing(false)}>Cancel</Plaque>
+              <Button tone="primary" disabled={!date} onClick={light}>Light the lamp</Button>
+              <Button onClick={() => setComposing(false)}>Cancel</Button>
             </div>
           </div>
-        ) : (
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-[19px]">Not yet visited.</p>
-            <Plaque tone="gold" onClick={() => { setDate(today()); setNote(""); setAlsoTwin(true); setComposing(true); }}>
-              Light the lamp
-            </Plaque>
-          </div>
         )}
-      </Slab>
+      </Card>
 
       <Details site={site} />
 
@@ -155,8 +162,8 @@ export function Site({ id }: { id: string }) {
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-1 py-3 sm:grid-cols-[180px_1fr] sm:gap-4">
-      <dt className="text-[16px] font-semibold text-[var(--ink-soft)]">{label}</dt>
+    <div className="grid gap-1 py-3.5 sm:grid-cols-[170px_1fr] sm:gap-4">
+      <dt className="text-[15px] font-semibold text-[var(--ink-soft)]">{label}</dt>
       <dd className="m-0">{children}</dd>
     </div>
   );
@@ -165,8 +172,8 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 function Details({ site }: { site: SiteT }) {
   const hasPin = site.lat != null;
   return (
-    <Slab className="mt-5" inner="p-6">
-      <h2 className="text-[24px]">About this {site.circuit === "dham" ? "dham" : "temple"}</h2>
+    <Card as="section" className="mt-5 p-6">
+      <h2 className="text-[22px]">About this {site.circuit === "dham" ? "dham" : "temple"}</h2>
       <dl className="m-0 mt-2 divide-y divide-[var(--line)]">
         {site.circuit === "shakti" && (
           <>
@@ -199,10 +206,10 @@ function Details({ site }: { site: SiteT }) {
         )}
       </dl>
       <div className="mt-5 flex flex-wrap gap-3">
-        {hasPin && <PlaqueLink href={href.map(site.id)}>Show on map</PlaqueLink>}
-        {hasPin && <PlaqueLink href={directionsUrl(site)} target="_blank" rel="noopener">Directions</PlaqueLink>}
-        {site.wiki && <PlaqueLink href={wikiUrl(site.wiki)} target="_blank" rel="noopener">Read on Wikipedia</PlaqueLink>}
+        {hasPin && <ButtonLink href={href.map(site.id)}>Show on map</ButtonLink>}
+        {hasPin && <ButtonLink href={directionsUrl(site)} target="_blank" rel="noopener">Directions</ButtonLink>}
+        {site.wiki && <ButtonLink href={wikiUrl(site.wiki)} target="_blank" rel="noopener">Read on Wikipedia</ButtonLink>}
       </div>
-    </Slab>
+    </Card>
   );
 }

@@ -73,7 +73,7 @@ export const CIRCUITS: Circuit[] = [
       "Fifty-one seats of the Goddess, each where a part of Sati's body or an ornament is said to have fallen. This list follows the Tantra Chudamani. Several pithas lie in Pakistan, Bangladesh, Nepal, Sri Lanka and Tibet.",
     tips: [
       "Pithas outside India need a passport, and some need visas or special permits. Manas, by Lake Manasarovar, is reached through the organised Kailash Manasarovar Yatra.",
-      "Where the Tantra Chudamani's site is uncertain, the app marks the shrine worshipped today and notes the older identification on its plaque.",
+      "Where the Tantra Chudamani's site is uncertain, the app marks the shrine worshipped today and notes the older identification on its page.",
       "Many Shakti temples are busiest during the two Navratris each year, so expect long queues then.",
       "Locations marked approximate point to the town, not the shrine. Confirm the exact temple locally before travelling.",
     ],

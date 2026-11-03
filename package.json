@@ -11,10 +11,10 @@
     "deploy": "node scripts/deploy.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/source-serif-4": "^5.3.1",
     "@fontsource/noto-serif-tamil": "^5.3.0",
     "@fontsource/tiro-devanagari-hindi": "^5.3.0",
-    "@fontsource/yatra-one": "^5.3.0",
     "leaflet": "^1.9.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

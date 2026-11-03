@@ -2,9 +2,9 @@ import { useState } from "react";
 import { CIRCUIT, SITES, type CircuitId } from "../lib/sites";
 import { useVisits } from "../lib/store";
 import { href } from "../lib/router";
+import { COVER } from "../lib/photos";
 import { Count, Emblem } from "../components/Emblems";
-import { Divider, GopuramHeader, MeanderBand } from "../components/ornament";
-import { Plaque, PlaqueLink, Slab } from "../components/ui";
+import { Button, ButtonLink, Card, Hero, PhotoCredit } from "../components/ui";
 import { SiteRow } from "../components/SiteRow";
 
 type Filter = "all" | "lit" | "unlit";
@@ -28,41 +28,40 @@ export function Circuit({ id }: { id: string }) {
 
   return (
     <div className="page">
-      <GopuramHeader title={c.name} local={c.local} script={c.script} tiers={3} />
-
-      <Slab className="mt-6" inner="flex flex-col items-center gap-6 p-6 sm:flex-row sm:items-center">
-        <div className="lamp-halo flex items-center gap-5">
-          <Emblem circuit={c.id} sites={sites} lit={lit} size={176} />
-          <Count lit={n} total={c.total} large />
+      <Hero photo={COVER[c.id]} alt="" back={{ href: href.home, label: "Home" }}>
+        <div className="flex items-end justify-between gap-4">
+          <div className="min-w-0">
+            <p lang={c.script === "tamil" ? "ta" : "hi"} className={`${c.script} soft text-[20px]`}>{c.local}</p>
+            <h1 className="text-[clamp(34px,8vw,52px)]">{c.name}</h1>
+            <div className="mt-2"><Count lit={n} total={c.total} large /></div>
+          </div>
+          <span className="shrink-0 rounded-full bg-black/40 p-2"><Emblem circuit={c.id} sites={sites} lit={lit} size={112} /></span>
         </div>
-        <p className="max-w-prose text-[18px]">{c.intro}</p>
-      </Slab>
+      </Hero>
+      <PhotoCredit id={COVER[c.id]} className="mt-2" />
 
-      <section aria-labelledby="tips" className="mt-6">
-        <Slab inner="p-6">
-          <h2 id="tips" className="text-[24px]">For the journey</h2>
-          <MeanderBand className="mt-2 block text-[var(--gold)]" />
-          <ul className="mt-4 grid gap-3 pl-5">
-            {c.tips.map((t) => (
-              <li key={t} className="marker:text-[var(--gold-deep)]">{t}</li>
-            ))}
-          </ul>
-        </Slab>
-      </section>
+      <p className="serif mt-6 max-w-prose text-[19px] leading-relaxed">{c.intro}</p>
 
-      <Divider className="my-8" />
+      <Card as="section" className="mt-6 p-6">
+        <h2 className="text-[21px]">For the journey</h2>
+        <ul className="mt-3 grid gap-2.5 pl-5 text-[16px] text-[var(--ink-soft)]">
+          {c.tips.map((t) => (
+            <li key={t} className="marker:text-[var(--accent)]">{t}</li>
+          ))}
+        </ul>
+      </Card>
 
-      <section aria-labelledby="sites">
+      <section aria-labelledby="sites" className="mt-10">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
           <h2 id="sites" className="text-[26px]">The {c.total} {c.id === "dham" ? "dhams" : "temples"}</h2>
-          <PlaqueLink small href={`${href.map()}?circuit=${c.id}`}>Open the map</PlaqueLink>
+          <ButtonLink small href={`${href.map()}?circuit=${c.id}`}>Show on map</ButtonLink>
         </div>
         <div className="mb-4 flex flex-wrap items-center gap-3">
           <div role="radiogroup" aria-label="Show" className="flex gap-2">
             {(["all", "lit", "unlit"] as Filter[]).map((f) => (
-              <Plaque key={f} small role="radio" aria-checked={filter === f} onClick={() => setFilter(f)}>
-                {f === "all" ? "All" : f === "lit" ? "Lit" : "Not yet"}
-              </Plaque>
+              <Button key={f} small role="radio" aria-checked={filter === f} onClick={() => setFilter(f)}>
+                {f === "all" ? "All" : f === "lit" ? "Visited" : "Not yet"}
+              </Button>
             ))}
           </div>
           {sites.length > 12 && (
@@ -72,7 +71,7 @@ export function Circuit({ id }: { id: string }) {
             </label>
           )}
         </div>
-        <Slab inner="py-2">
+        <Card className="overflow-hidden">
           {shown.length ? (
             <ol className="m-0 list-none divide-y divide-[var(--line)] p-0">
               {shown.map((s) => (
@@ -80,14 +79,14 @@ export function Circuit({ id }: { id: string }) {
               ))}
             </ol>
           ) : (
-            <p className="px-6 py-6 text-center text-[var(--ink-soft)]">
-              {filter === "lit" && !needle ? "No lamps lit in this circuit yet." : filter === "unlit" && !needle ? "Every lamp in this circuit is lit." : "Nothing matches that search."}
+            <p className="px-6 py-8 text-center text-[var(--ink-soft)]">
+              {filter === "lit" && !needle ? "No temples visited in this pilgrimage yet." : filter === "unlit" && !needle ? "Every temple here has been visited." : "Nothing matches that search."}
             </p>
           )}
-        </Slab>
-        <p className="mt-4 text-[15px] text-[var(--ink-soft)]">
+        </Card>
+        <p className="mt-4 text-[14px] text-[var(--ink-soft)]">
           Temple list and locations from Wikipedia's articles on the {c.source}
-          {c.id === "shakti" ? " and the Tantra Chudamani list on Hindi Wikipedia" : ""}.
+          {c.id === "shakti" ? " and the Tantra Chudamani list on Hindi Wikipedia" : ""}. Photos from Wikimedia Commons, credited on each temple's page.
         </p>
       </section>
     </div>
@@ -97,11 +96,11 @@ export function Circuit({ id }: { id: string }) {
 export function NotFound() {
   return (
     <div className="page pt-10">
-      <Slab inner="p-8 text-center">
-        <h1 className="text-[28px]">This page could not be found</h1>
+      <Card className="p-8 text-center">
+        <h1 className="text-[26px]">This page could not be found</h1>
         <p className="mt-3 text-[var(--ink-soft)]">The link may be from an older version of the app.</p>
-        <PlaqueLink className="mt-6" href={href.home}>Back to Yatra</PlaqueLink>
-      </Slab>
+        <ButtonLink className="mt-6" href={href.home}>Back to home</ButtonLink>
+      </Card>
     </div>
   );
 }

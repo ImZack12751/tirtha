@@ -32,8 +32,8 @@ function Lotus12({ sites, lit }: EmblemProps) {
             d="M100 66 C113 52 114 28 100 8 C86 28 87 52 100 66 Z" />
         );
       })}
-      <circle cx={C} cy={C} r="22" fill="var(--slab-2)" stroke="var(--line-strong)" />
-      <circle cx={C} cy={C} r="6" fill="var(--gold)" />
+      <circle className="orn" cx={C} cy={C} r="22" />
+      <circle className="dot" cx={C} cy={C} r="6" />
     </>
   );
 }
@@ -50,11 +50,11 @@ function Ring51({ sites, lit }: EmblemProps) {
       ))}
       {Array.from({ length: 17 }, (_, i) => {
         const [x, y] = polar(48, i * (360 / 17));
-        return <circle key={i} cx={x} cy={y} r="2" fill="var(--line-strong)" />;
+        return <circle key={i} className="pip" cx={x} cy={y} r="2" />;
       })}
       <path className="orn" d="M100 70 L130 100 L100 130 L70 100 Z" />
       <path className="orn" d="M79 79 H121 V121 H79 Z" />
-      <circle cx={C} cy={C} r="6" fill="var(--gold)" />
+      <circle className="dot" cx={C} cy={C} r="6" />
     </>
   );
 }
@@ -79,7 +79,7 @@ function Square4({ sites, lit }: EmblemProps) {
       {sites.map((s) => (
         <path key={s.id} className={`seg ${lit.has(s.id) ? "on on-glow" : ""}`} d={GATE[s.dir ?? "North"]} />
       ))}
-      <circle cx={C} cy={C} r="6" fill="var(--gold)" />
+      <circle className="dot" cx={C} cy={C} r="6" />
     </>
   );
 }
@@ -95,13 +95,13 @@ function Mala108({ sites, lit }: EmblemProps) {
         const [x, y] = polar(86, 180 + gap / 2 + i * step + step / 2);
         return <circle key={s.id} className={`seg ${lit.has(s.id) ? "on on-glow" : ""}`} cx={x} cy={y} r="3.4" />;
       })}
-      <circle cx={C} cy={C + 86} r="7" fill="var(--slab-2)" stroke="var(--gold)" strokeWidth="1.5" />
-      <path d="M96 193 L94 200 M100 193 V200 M104 193 L106 200" stroke="var(--gold)" strokeWidth="1.2" />
+      <circle className="dot" cx={C} cy={C + 86} r="6" />
+      <path className="orn" d="M96 193 L94 200 M100 193 V200 M104 193 L106 200" />
       <circle className="orn" cx={C} cy={C} r="60" />
       {Array.from({ length: 16 }, (_, i) => (
         <path key={i} className="orn" transform={`rotate(${i * 22.5} ${C} ${C})`} d="M100 96 C104 86 104 72 100 62 C96 72 96 86 100 96 Z" />
       ))}
-      <circle cx={C} cy={C} r="6" fill="var(--gold)" />
+      <circle className="dot" cx={C} cy={C} r="6" />
     </>
   );
 }
@@ -124,9 +124,9 @@ export function Emblem({ circuit, sites, lit, size = 120 }: EmblemProps & { circ
 
 export function Count({ lit, total, large = false }: { lit: number; total: number; large?: boolean }) {
   return (
-    <p className={`display leading-none ${large ? "text-[40px]" : "text-[28px]"}`}>
-      <span className={lit ? "text-[var(--accent)]" : "text-[var(--ink-soft)]"}>{lit}</span>
-      <span className="text-[var(--ink-soft)]">/{total}</span>
+    <p className={`serif font-semibold leading-none tabular-nums ${large ? "text-[44px]" : "text-[30px]"}`}>
+      <span>{lit}</span>
+      <span className="soft opacity-70">/{total}</span>
       <span className="sr-only"> lamps lit</span>
     </p>
   );

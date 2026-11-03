@@ -1,9 +1,10 @@
 import { CIRCUIT, SITE_BY_ID } from "../lib/sites";
 import { formatDate, useVisits } from "../lib/store";
 import { href } from "../lib/router";
+import { hasPhoto, thumbUrl } from "../lib/photos";
 import { Diya } from "../components/Diya";
-import { GopuramHeader, LotusMark } from "../components/ornament";
-import { PlaqueLink, Slab } from "../components/ui";
+import { LotusMark } from "../components/ornament";
+import { ButtonLink, Card } from "../components/ui";
 import { LocalName } from "../components/SiteRow";
 
 export function Journal() {
@@ -13,43 +14,49 @@ export function Journal() {
     .sort((a, b) => b[1].date.localeCompare(a[1].date) || b[1].updated - a[1].updated);
 
   return (
-    <div className="page">
-      <GopuramHeader title="Journal" local="यात्रा वृत्तांत" tiers={3} subtitle="Every lamp you have lit, newest first." />
+    <div className="page pt-8">
+      <p lang="hi" className="deva text-[19px] text-[var(--accent)]">यात्रा वृत्तांत</p>
+      <h1 className="text-[clamp(34px,8vw,48px)]">Journal</h1>
+      <p className="mt-2 text-[var(--ink-soft)]">Every temple you have visited, newest first.</p>
       {entries.length ? (
-        <ol className="m-0 mt-6 grid list-none gap-5 p-0">
+        <ol className="m-0 mt-6 grid list-none gap-4 p-0">
           {entries.map(([id, v]) => {
             const s = SITE_BY_ID[id];
             return (
-              <Slab key={id} as="li" inner="p-6">
+              <Card key={id} as="li" className="p-5">
                 <a href={href.site(id)} className="flex items-center gap-4 text-[var(--ink)] no-underline">
-                  <Diya lit color={`var(--c-${s.circuit})`} size={48} />
+                  {hasPhoto(id) ? (
+                    <img className="thumb" src={thumbUrl(id)} alt="" loading="lazy" width={56} height={56} />
+                  ) : (
+                    <span className="thumb grid place-items-center"><Diya lit color={`var(--c-${s.circuit})`} size={32} /></span>
+                  )}
                   <span className="min-w-0">
-                    <span className="block text-[15px] font-semibold text-[var(--ink-soft)]">
+                    <span className="block text-[14px] font-semibold text-[var(--ink-soft)]">
                       {formatDate(v.date)} · {CIRCUIT[s.circuit].single}
                     </span>
-                    <span className="display block text-[24px] leading-tight">{s.name}</span>
-                    <LocalName site={s} className="block text-[18px] text-[var(--accent)]" />
+                    <span className="serif block text-[22px] font-semibold leading-tight">{s.name}</span>
+                    <LocalName site={s} className="block text-[16px] text-[var(--ink-soft)]" />
                   </span>
                 </a>
                 {v.journal ? (
-                  <p className="mt-4 whitespace-pre-wrap border-l-2 border-[var(--gold)] pl-4">{v.journal}</p>
+                  <p className="serif mt-4 whitespace-pre-wrap border-l-2 border-[var(--accent)] pl-4 text-[18px] leading-relaxed">{v.journal}</p>
                 ) : (
-                  <p className="mt-4 text-[16px] text-[var(--ink-soft)]">
+                  <p className="mt-4 text-[15px] text-[var(--ink-soft)]">
                     No journal written. <a href={href.site(id)}>Write one</a>
                   </p>
                 )}
-              </Slab>
+              </Card>
             );
           })}
         </ol>
       ) : (
-        <Slab className="mt-6" inner="px-6 py-10 text-center">
+        <Card className="mt-6 px-6 py-10 text-center">
           <LotusMark />
-          <p className="mx-auto mt-4 max-w-md">
+          <p className="mx-auto mt-4 max-w-md text-[var(--ink-soft)]">
             The journal is still blank. When you light the lamp at a temple, what you write about the visit is kept here.
           </p>
-          <PlaqueLink className="mt-6" href={href.home}>Choose a circuit</PlaqueLink>
-        </Slab>
+          <ButtonLink className="mt-6" href={href.home}>Choose a pilgrimage</ButtonLink>
+        </Card>
       )}
     </div>
   );

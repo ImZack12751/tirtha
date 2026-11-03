@@ -1,66 +1,56 @@
 @import "tailwindcss";
 
-/* ---------- Tokens: Sandstone (day) ---------- */
+/* ---------- Tokens: day ---------- */
 :root,
 :root[data-theme="sandstone"] {
   color-scheme: light;
-  --bg: #e7d5b3;
-  --bg-deep: #dbc59c;
-  --slab: #f3e8cf;
-  --slab-2: #ecdcbb;
-  --ink: #2a2623;
-  --ink-soft: #4e453c;
-  --line: #b9a27a;
-  --line-strong: #8c7656;
-  --bevel-hi: rgba(255, 251, 240, 0.8);
-  --bevel-lo: rgba(92, 70, 40, 0.24);
-  --accent: #8b3a1e;
-  --accent-ink: #f8eedb;
-  --gold: #c29a3b;
-  --gold-deep: #8f6f22;
-  --gold-ink: #241a10;
+  --bg: #f6f2eb;
+  --surface: #ffffff;
+  --surface-2: #efe8dc;
+  --ink: #1d1814;
+  --ink-soft: #5c5249;
+  --line: rgba(29, 24, 20, 0.12);
+  --accent: #9a3a12;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(154, 58, 18, 0.1);
+  --gold: #c08a2c;
+  --gold-deep: #8f6417;
   --lamp: #e8a33d;
   --flame-core: #fff1c4;
-  --stone-unlit: #8f8579;
-  --stone-unlit-fill: #dccfb6;
-  --glow: rgba(232, 163, 61, 0.5);
-  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .22 0 0 0 0 .14 0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --veins: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .02' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .22 0 0 0 0 .12 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23v)'/%3E%3C/svg%3E");
-  --focus: #8b3a1e;
-  --tile-filter: sepia(0.55) saturate(0.6) brightness(1.04) contrast(0.9);
+  --stone-unlit: #8e857b;
+  --stone-unlit-fill: #e4ddd2;
+  --glow: rgba(232, 163, 61, 0.55);
+  --focus: #9a3a12;
+  --shadow: 0 1px 2px rgba(29, 24, 20, 0.06), 0 8px 24px rgba(29, 24, 20, 0.07);
+  --tile-filter: saturate(0.85);
   --c-jyotirlinga: #34477a;
   --c-shakti: #b3261e;
   --c-dham: #a9521a;
   --c-divya: #3e6b3c;
 }
 
-/* ---------- Tokens: Sanctum (night) ---------- */
+/* ---------- Tokens: night ---------- */
 :root[data-theme="sanctum"] {
   color-scheme: dark;
-  --bg: #1a1210;
-  --bg-deep: #120c0a;
-  --slab: #2b1512;
-  --slab-2: #351c17;
-  --ink: #f0e3c9;
-  --ink-soft: #cfbd9e;
-  --line: #5c3b2c;
-  --line-strong: #8a6440;
-  --bevel-hi: rgba(255, 214, 150, 0.1);
-  --bevel-lo: rgba(0, 0, 0, 0.55);
-  --accent: #e8a33d;
-  --accent-ink: #1a1210;
-  --gold: #d4ae55;
-  --gold-deep: #9c7a2f;
-  --gold-ink: #1e140c;
+  --bg: #0f0c0a;
+  --surface: #1a1613;
+  --surface-2: #26201b;
+  --ink: #f3ece2;
+  --ink-soft: #b8ada0;
+  --line: rgba(255, 240, 220, 0.11);
+  --accent: #f0a04b;
+  --accent-ink: #1a1209;
+  --accent-soft: rgba(240, 160, 75, 0.14);
+  --gold: #e0b45c;
+  --gold-deep: #a67d2e;
   --lamp: #f0b24e;
   --flame-core: #fff4d0;
-  --stone-unlit: #8a7a6d;
-  --stone-unlit-fill: #3d2b24;
-  --glow: rgba(240, 170, 70, 0.42);
-  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .75 0 0 0 0 .5 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --veins: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .02' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .6 0 0 0 0 .3 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23v)'/%3E%3C/svg%3E");
+  --stone-unlit: #7d7268;
+  --stone-unlit-fill: #2e2722;
+  --glow: rgba(240, 170, 70, 0.5);
   --focus: #f0b24e;
-  --tile-filter: invert(1) hue-rotate(180deg) sepia(0.65) saturate(0.45) brightness(0.62) contrast(1.05);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --tile-filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(0.9) saturate(0.6);
   --c-jyotirlinga: #93a6d8;
   --c-shakti: #e3786d;
   --c-dham: #e39350;
@@ -68,58 +58,37 @@
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-slab: var(--slab);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-gold: var(--gold);
-  --color-lamp: var(--lamp);
-  --font-display: "Yatra One", "Tiro Devanagari Hindi", serif;
-  --font-body: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
+  --font-serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
   --font-deva: "Tiro Devanagari Hindi", "Noto Serif Devanagari", serif;
   --font-tamil: "Noto Serif Tamil", serif;
 }
 
 /* ---------- Base ---------- */
-html {
-  background: var(--bg);
-  -webkit-text-size-adjust: 100%;
-}
-body {
-  margin: 0;
-  min-height: 100dvh;
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 1.65;
-  background-color: var(--bg);
-  background-image: var(--noise), var(--veins);
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-#root {
-  position: relative;
-  z-index: 1;
-}
-::selection {
-  background: var(--gold);
-  color: var(--gold-ink);
-}
-:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-/* element defaults live in the base layer so Tailwind utilities can override them */
 @layer base {
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    color: var(--ink);
+    background: var(--bg);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
   h1,
   h2,
   h3 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 1.2;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
     margin: 0;
-    letter-spacing: 0.01em;
   }
   a {
     color: var(--accent);
@@ -128,13 +97,20 @@ body {
   p {
     margin: 0;
   }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
 }
 
 /* Devanagari and Tamil are never stretched, spaced or transformed */
 .deva,
 .tamil {
   letter-spacing: 0 !important;
-  word-spacing: normal;
   text-transform: none !important;
   font-stretch: normal;
   font-synthesis: none;
@@ -145,8 +121,8 @@ body {
 .tamil {
   font-family: var(--font-tamil);
 }
-.display {
-  font-family: var(--font-display);
+.serif {
+  font-family: var(--font-serif);
 }
 .sr-only {
   position: absolute;
@@ -157,161 +133,160 @@ body {
   white-space: nowrap;
 }
 
-/* ---------- Carved slab ---------- */
-.chamfer {
-  --ch: 12px;
-  clip-path: polygon(
-    var(--ch) 0,
-    calc(100% - var(--ch)) 0,
-    100% var(--ch),
-    100% calc(100% - var(--ch)),
-    calc(100% - var(--ch)) 100%,
-    var(--ch) 100%,
-    0 calc(100% - var(--ch)),
-    0 var(--ch)
-  );
-}
-.slab {
-  position: relative;
-  padding: 1px;
-  background: var(--line-strong);
-}
-.slab > .slab-in {
-  --ch: 11.6px;
-  position: relative;
-  height: 100%;
-  box-sizing: border-box;
-  background-color: var(--slab);
-  background-image: var(--noise);
-  box-shadow:
-    inset 2px 2px 0 var(--bevel-hi),
-    inset -2px -2px 0 var(--bevel-lo),
-    inset 0 0 0 5px var(--slab),
-    inset 0 0 0 6px var(--line);
-  transition: background-color 0.4s ease;
-}
-.slab--gilt {
-  background: var(--gold-deep);
+/* ---------- Surfaces ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease;
 }
 
-/* ---------- Carved plaque buttons ---------- */
-.plaque {
-  --ch: 8px;
-  appearance: none;
-  border: 0;
-  margin: 0;
-  padding: 1px;
-  background: var(--line-strong);
-  color: var(--ink);
-  font: inherit;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 1.2;
-  cursor: pointer;
-  display: inline-flex;
-  text-decoration: none;
-  min-height: 48px;
-  -webkit-tap-highlight-color: transparent;
+/* ---------- Photos ---------- */
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: #2a221c;
+  isolation: isolate;
 }
-.plaque > span {
-  --ch: 7.6px;
-  flex: 1;
+.photo > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+.photo::after {
+  /* scrim: keeps white type readable on any photo */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(10, 7, 5, 0.32) 0%, rgba(10, 7, 5, 0.08) 18%, rgba(10, 7, 5, 0.62) 46%, rgba(10, 7, 5, 0.94) 100%);
+}
+.photo--plain {
+  background: linear-gradient(160deg, #3a2a20, #1a1310);
+}
+.on-photo {
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+.on-photo .soft {
+  color: rgba(255, 255, 255, 0.82);
+}
+.thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--surface-2);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 20px;
-  background-color: var(--slab-2);
-  background-image: var(--noise);
-  box-shadow:
-    inset 2px 2px 0 var(--bevel-hi),
-    inset -2px -2px 0 var(--bevel-lo);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.3s ease;
-}
-.plaque:hover > span {
-  background-color: var(--slab);
-}
-.plaque:active > span,
-.plaque[aria-pressed="true"] > span,
-.plaque[aria-checked="true"] > span {
-  transform: translateY(1px);
-  box-shadow:
-    inset 2px 3px 4px var(--bevel-lo),
-    inset -1px -1px 0 var(--bevel-hi);
-}
-.plaque[aria-checked="true"],
-.plaque[aria-pressed="true"] {
-  background: var(--gold-deep);
-}
-.plaque:disabled {
-  cursor: default;
-  opacity: 0.55;
-}
-.plaque--gold {
-  background: var(--gold-deep);
-  color: var(--gold-ink);
-}
-.plaque--gold > span {
-  background-color: var(--gold);
-  box-shadow:
-    inset 0 0 0 3px var(--gold),
-    inset 0 0 0 4px rgba(36, 26, 16, 0.4),
-    inset 2px 2px 0 4px rgba(255, 240, 200, 0.25);
-}
-.plaque--gold:hover > span {
-  background-color: #cfa748;
-}
-.plaque--gold:active > span {
-  box-shadow:
-    inset 0 0 0 3px var(--gold),
-    inset 0 0 0 4px rgba(36, 26, 16, 0.4),
-    inset 2px 3px 5px 3px rgba(36, 26, 16, 0.35);
-}
-.plaque--laterite {
-  background: var(--accent);
-  color: var(--accent);
-}
-.plaque--laterite > span {
-  background-color: var(--slab);
-}
-.plaque--small {
-  min-height: 40px;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
   font-size: 16px;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
 }
-.plaque--small > span {
-  padding: 6px 14px;
+.btn:hover {
+  background: var(--surface-2);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.btn--primary:hover {
+  background: color-mix(in srgb, var(--accent) 88%, var(--ink));
+}
+.btn--danger {
+  color: #b42318;
+  border-color: rgba(180, 35, 24, 0.35);
+}
+:root[data-theme="sanctum"] .btn--danger {
+  color: #ff8a7a;
+  border-color: rgba(255, 138, 122, 0.35);
+}
+.btn--small {
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: 15px;
+}
+.btn--glass {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+.btn--glass:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+.btn[aria-checked="true"],
+.btn[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
 }
 
-/* ---------- Form fields: calm, incised ---------- */
+/* ---------- Form fields ---------- */
 .field {
   display: grid;
   gap: 6px;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--ink-soft);
 }
 .field input,
 .field textarea,
 .input {
   font: inherit;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 400;
   color: var(--ink);
-  background: var(--slab);
-  border: 1px solid var(--line-strong);
-  border-radius: 0;
-  padding: 10px 12px;
-  box-shadow: inset 1px 2px 3px var(--bevel-lo);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 14px;
   width: 100%;
   box-sizing: border-box;
 }
 .field textarea {
-  min-height: 150px;
+  min-height: 140px;
   resize: vertical;
+  font-family: var(--font-serif);
+  font-size: 18px;
   line-height: 1.65;
 }
-.input::placeholder,
-.field textarea::placeholder {
-  color: var(--ink-soft);
-  opacity: 0.8;
+.field input:focus,
+.field textarea:focus,
+.input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 0;
 }
 
 /* ---------- Diya ---------- */
@@ -357,12 +332,12 @@ body {
   50% { opacity: 1; }
 }
 
-/* ---------- Emblems ---------- */
+/* ---------- Progress emblems ---------- */
 .emblem .seg {
   fill: var(--stone-unlit-fill);
   stroke: var(--stone-unlit);
   stroke-width: 1;
-  transition: fill 1.4s ease, stroke 1.4s ease;
+  transition: fill 1.2s ease, stroke 1.2s ease;
 }
 .emblem .seg.on {
   fill: var(--gold);
@@ -373,38 +348,69 @@ body {
 }
 .emblem .orn {
   fill: none;
-  stroke: var(--line-strong);
+  stroke: var(--stone-unlit);
   stroke-width: 1;
+  opacity: 0.7;
+}
+.emblem .dot {
+  fill: var(--gold);
+}
+.emblem .pip {
+  fill: var(--stone-unlit);
+}
+.on-photo .emblem .pip {
+  fill: rgba(255, 255, 255, 0.6);
+}
+/* on top of a photo the emblem draws in light strokes */
+.on-photo .emblem .seg {
+  fill: rgba(255, 255, 255, 0.14);
+  stroke: rgba(255, 255, 255, 0.55);
+}
+.on-photo .emblem .seg.on {
+  fill: #f2c46a;
+  stroke: #fff2cf;
+}
+.on-photo .emblem .orn {
+  stroke: rgba(255, 255, 255, 0.5);
+}
+.on-photo .emblem .dot {
+  fill: #f2c46a;
 }
 
-/* Night only: a faint oil-lamp glow behind focal elements */
-:root[data-theme="sanctum"] .lamp-halo {
-  background: radial-gradient(closest-side, rgba(232, 163, 61, 0.16), rgba(232, 163, 61, 0.05) 60%, transparent);
-}
-
-/* ---------- Page motion ---------- */
+/* ---------- Motion ---------- */
 .page {
-  animation: page-in 0.45s ease both;
+  animation: page-in 0.35s ease both;
 }
 @keyframes page-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
 }
 .toast {
-  animation: page-in 0.3s ease both;
+  animation: page-in 0.25s ease both;
+}
+.lift {
+  transition: transform 0.25s ease;
+}
+.lift:hover {
+  transform: translateY(-2px);
+}
+.lift > img {
+  transition: transform 0.6s ease;
+}
+.lift:hover > img {
+  transform: scale(1.03);
 }
 
 /* ---------- Map ---------- */
 .map-wrap .leaflet-container {
-  background: var(--bg-deep);
+  background: var(--surface-2);
   font: inherit;
 }
 .map-wrap .leaflet-tile-pane {
   filter: var(--tile-filter);
-  transition: filter 0.4s ease;
 }
 .map-wrap .leaflet-control-attribution {
-  background: color-mix(in srgb, var(--slab) 88%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
   color: var(--ink-soft);
   font-size: 12px;
 }
@@ -412,14 +418,14 @@ body {
   color: var(--accent);
 }
 .map-wrap .leaflet-bar {
-  border: 1px solid var(--line-strong);
-  border-radius: 0;
-  box-shadow: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
 }
 .map-wrap .leaflet-bar a {
-  background: var(--slab-2);
+  background: var(--surface);
   color: var(--ink);
-  border-radius: 0 !important;
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -431,10 +437,11 @@ body {
 }
 .pin svg {
   overflow: visible;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
 
 /* ---------- Dialog ---------- */
-dialog.carved {
+dialog.sheet {
   padding: 0;
   border: 0;
   background: transparent;
@@ -442,8 +449,8 @@ dialog.carved {
   max-width: min(92vw, 460px);
   width: 100%;
 }
-dialog.carved::backdrop {
-  background: rgba(20, 12, 8, 0.55);
+dialog.sheet::backdrop {
+  background: rgba(10, 7, 5, 0.55);
 }
 
 /* ---------- Reduced motion: everything still ---------- */
