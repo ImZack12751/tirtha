@@ -92,7 +92,7 @@ export function Settings() {
             Divya Desam names in Tamil are the titles of their Tamil Wikipedia articles.
           </li>
           <li>Temple photos: Wikimedia Commons, under the licence shown with each photo. Photos showing deity images were left out on purpose.</li>
-          <li>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.</li>
+          <li>Map: drawn by the app from <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> (public domain), using India's official boundaries.</li>
         </ul>
       </Card>
 

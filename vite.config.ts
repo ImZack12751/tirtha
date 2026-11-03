@@ -39,16 +39,6 @@ export default defineConfig({
             handler: "CacheFirst",
             options: { cacheName: "temple-photos", expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 180 } },
           },
-          {
-            // map tiles the viewer has already looked at stay available offline
-            urlPattern: /^https:\/\/tile\.openstreetmap\.org\//,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "osm-tiles",
-              expiration: { maxEntries: 600, maxAgeSeconds: 60 * 60 * 24 * 30 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
         ],
       },
     }),
